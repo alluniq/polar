@@ -12,12 +12,28 @@ Gem::Specification.new do |s|
   s.date = %q{2010-06-29}
   s.description = %q{Control access like a Bear}
   s.email = %q{grzegorz.kazulak@gmail.com}
+  s.files = [
+    ".gitignore",
+     "Gemfile",
+     "Rakefile",
+     "VERSION",
+     "grizzly.gemspec",
+     "lib/grizzly.rb",
+     "lib/grizzly/configuration.rb",
+     "lib/grizzly/logger.rb",
+     "spec/configuration_spec.rb",
+     "spec/spec_helper.rb"
+  ]
   s.homepage = %q{http://github.com/grzegorzkazulak/grizzly/grizzly}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{grizzly}
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{ACL for Rails 3}
+  s.test_files = [
+    "spec/configuration_spec.rb",
+     "spec/spec_helper.rb"
+  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
