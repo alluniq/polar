@@ -24,17 +24,18 @@ module Grizzly
       
     end
     
-    class PermissionHash
-      attr_accessor :auth_type
-      attr_accessor :params
+    class PermissionHash < Hash
       
       def initialize(method)
-        @auth_type = method.to_sym
+        self[:auth_type] = method.to_sym
       end
       
       def allow(*params)
+        self[:access_type] = "allow".to_sym
+        self[:params] = params
+        
         Grizzly::Permissions::Base.store << self
-        @params = params
+        p Grizzly::Permissions::Base.store
       end
       
       def deny(*params)
