@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/grizzly/logger')
 require File.expand_path(File.dirname(__FILE__) + '/grizzly/configuration')
+require File.expand_path(File.dirname(__FILE__) + '/grizzly/adapter')
 
 module Grizzly
   class << self
