@@ -6,6 +6,15 @@ module Grizzly
   class << self
     attr_writer :configuration
   end
+  
+  def self.define(type)
+    case type
+    when :permissions
+      yield(Grizzly::Permissions::Base.define)
+    when :groups
+      yield(Grizzly::Groups::Base.define)
+    end
+  end
 
   def self.logger
     @logger || Grizzly.configuration.logger

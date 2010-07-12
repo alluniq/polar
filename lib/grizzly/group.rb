@@ -1,10 +1,9 @@
 module Grizzly
-  module Groups
+  module Group
     class Base
       
       def method_missing(method)
-        permissions = {}
-        permissions[method] = "allow".to_sym
+        Grizzly::Storage.new(:group, method)
       end
       
     end

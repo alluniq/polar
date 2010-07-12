@@ -14,11 +14,11 @@ module Grizzly
         when :permissions
           # Permissions
           include Grizzly::Permissions
-          yield(Grizzly::Permissions::Base.new)
+          yield(Grizzly::Permission.new)
         when :groups
           # Groups
-          include Grizzly::Groups
-          yield(Grizzly::Groups::Base.new)
+          include Grizzly::Group
+          yield(Grizzly::Group::Base.new)
         end
       end
     end

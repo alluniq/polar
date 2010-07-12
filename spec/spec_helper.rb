@@ -26,8 +26,20 @@ ActiveRecord::Schema.define(:version => 1) do
   end
 end
 
+Grizzly.define :permissions do |gz|
+  gz.can_edit_profile do |c|
+    c.allow :users_controller, :only => [:edit, :update]
+  end
+  
+  gz.can_add_addresses do |c|
+    c.allow :addresses_controller, :only => [:new, :create]
+  end
+  
+end
+
 class User < ActiveRecord::Base
   include Grizzly::ActiveRecordExtensions
+  
   default :permissions do |p|
     p.can_edit_profile
     p.can_update_profile
