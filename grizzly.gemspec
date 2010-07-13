@@ -26,9 +26,7 @@ Gem::Specification.new do |s|
      "lib/grizzly/adapter.rb",
      "lib/grizzly/adapter/active_record.rb",
      "lib/grizzly/configuration.rb",
-     "lib/grizzly/group.rb",
      "lib/grizzly/logger.rb",
-     "lib/grizzly/permission.rb",
      "lib/grizzly/permissions.rb",
      "lib/grizzly/storage.rb",
      "spec/active_record_spec.rb",
@@ -40,7 +38,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{grizzly}
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{ACL for Rails 3}
+  s.summary = %q{ACL for bears}
   s.test_files = [
     "spec/active_record_spec.rb",
      "spec/configuration_spec.rb",
@@ -53,14 +51,11 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<railties>, [">= 3.0.0.beta4"])
-      s.add_runtime_dependency(%q<redis>, [">= 0"])
     else
       s.add_dependency(%q<railties>, [">= 3.0.0.beta4"])
-      s.add_dependency(%q<redis>, [">= 0"])
     end
   else
     s.add_dependency(%q<railties>, [">= 3.0.0.beta4"])
-    s.add_dependency(%q<redis>, [">= 0"])
   end
 end
 

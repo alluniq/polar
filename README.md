@@ -9,8 +9,8 @@ Usage example
 	class User < ActiveRecord::Base
 	
 	  default :permissions do |p|
-	    p.can_edit_profile
-	    p.can_manage_addresses
+	    p.edit_profile
+	    p.manage_addresses
 	  end
   
 	  default :groups do |g|
@@ -24,14 +24,25 @@ Example definition
 ----------
 
 	Grizzly.define :permissions do |gz|
-	  gz.can_edit_profile do |c|
+	  gz.edit_profile do |c|
 	    c.allow :users_controller, :only => [:edit, :update]
 	  end
   
-	  gz.can_manage_addresses do |gz|
+	  gz.manage_addresses do |gz|
 	    c.allow :addresses_controller
 	  end
 	end
+	
+Example usage
+----------
+
+	@user = User.first
+	
+	# Check if user has specific permission
+	@user.can?(:edit_profile)
+	
+	# Check if user belongs to specific group
+	@user.member_of?(:administrators)
 	
 	
 ## Note on Patches/Pull Requests

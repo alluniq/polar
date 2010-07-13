@@ -38,7 +38,6 @@ begin
 
     gem.rubyforge_project = 'grizzly'
     gem.add_dependency 'railties',        '>= 3.0.0.beta4'
-    gem.add_dependency 'redis'
   end
 
   Jeweler::GemcutterTasks.new
