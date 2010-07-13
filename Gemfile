@@ -7,4 +7,5 @@ end
 group :development do
   gem 'rake', '>= 0.8.7'
   gem 'jeweler', '>= 1.4'
+  gem 'redis'
 end

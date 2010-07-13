@@ -30,7 +30,7 @@ begin
 
   Jeweler::Tasks.new do |gem|
     gem.name        = 'grizzly'
-    gem.summary     = 'ACL for Rails 3'
+    gem.summary     = 'ACL for bears'
     gem.description = 'Control access like a Bear'
     gem.email       = 'grzegorz.kazulak@gmail.com'
     gem.homepage    = 'http://github.com/grzegorzkazulak/grizzly/%s' % gem.name
@@ -38,6 +38,7 @@ begin
 
     gem.rubyforge_project = 'grizzly'
     gem.add_dependency 'railties',        '>= 3.0.0.beta4'
+    gem.add_dependency 'redis'
   end
 
   Jeweler::GemcutterTasks.new
