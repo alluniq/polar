@@ -55,3 +55,7 @@ module Grizzly
     end
   end
 end
+
+if defined? ActiveRecord::Base
+  ActiveRecord::Base.send(:include, Grizzly::ActiveRecordExtensions)
+end

@@ -37,7 +37,6 @@ begin
     gem.authors     = [ 'Grzegorz Kazulak']
 
     gem.rubyforge_project = 'grizzly'
-    gem.add_dependency 'railties',        '>= 3.0.0.beta4'
   end
 
   Jeweler::GemcutterTasks.new

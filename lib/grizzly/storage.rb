@@ -13,9 +13,9 @@ module Grizzly
     def set
       case @type
       when :permission
-        UserPermission.create(:permission_name => @name.to_s)
+        UserPermission.find_or_create_by_permission_name(@name.to_s)
       when :group
-        UserGroup.create(:group_name => @name.to_s)
+        UserGroup.find_or_create_by_group_name(@name.to_s)
       end
     end
     
