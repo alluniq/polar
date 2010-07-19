@@ -1,3 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/stored_permission')
-require File.expand_path(File.dirname(__FILE__) + '/stored_group')
-require File.expand_path(File.dirname(__FILE__) + '/adapter/active_record')
+require File.expand_path(File.dirname(__FILE__) + '/adapters/active_record')
+
+module Grizzly #nodoc
+  module Adapter
+    
+  end
+end

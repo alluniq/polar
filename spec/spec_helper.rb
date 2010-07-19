@@ -71,11 +71,11 @@ end
 
 Grizzly.define :groups do |gg|
   gg.administrators do |a|
-    a.have :can_add_addresses, :can_edit_profile
+    a.have :add_addresses, :edit_profile
   end
   
   gg.clients do |c|
-    c.have :can_edit_profile
+    c.have :edit_profile
   end
 end
 
@@ -84,7 +84,6 @@ class User < ActiveRecord::Base
   acts_as_grizzly
   
   default :permissions do |p|
-    p.edit_profile
     p.add_addresses
   end
   

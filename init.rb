@@ -1,1 +1,1 @@
-require File.dirname(__FILE__) + "/lib/grizzly.rb"
+require File.dirname(__FILE__) + "/lib/grizzly"

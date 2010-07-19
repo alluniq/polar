@@ -1,42 +1,69 @@
-module Grizzly
-  module Permissions
-    class Base
-      
-      attr_writer :permissions_store
-      
-      def self.define(&block)
-        yield self if block_given?
-        self
-      end
-      
-      def self.method_missing(method, &block)
-        yield PermissionHash.new(method) if block_given?
-      end
-      
-      def self.store
-        unless @permissions_store
-          @permissions_store = {}
-        end
-        @permissions_store
-      end
-      
+module Grizzly #nodoc
+  class DefaultPermissions
+    
+    # This method is executed whenever a default permission is defined
+    # in subject's model
+    def method_missing(method, *params)
+      Permissions.instance.subject_store << method.to_sym
+      self
     end
     
-    class PermissionHash < Hash
+    # Protects from creating more than one instance of this class    
+    def self.instance
+      @__instance__ ||= new
+    end
+    
+  end
+  
+  class Permissions
+    attr_accessor :defined_permissions_store
+    attr_accessor :subject_store
       
-      def initialize(method)
-        self[:permission_name] = method.to_sym
+    def initialize
+      unless @defined_permissions_store
+        @defined_permissions_store = []
       end
       
-      def allow(*params)
-        self[:access_type] = "allow".to_sym
-        self[:params] = params
-        Grizzly::Permissions::Base.store[self[:permission_name]] = self[:params]
+      unless @subject_store
+        @subject_store = []
       end
+      self
+    end
+    
+    def self.instance
+      @__instance__ ||= new
+    end  
       
-      def deny(*params)
-        
+    def self.define(&block)
+      self
+    end
+      
+    def self.method_missing(method, &block)
+      yield PermissionHash.new(method) if block_given?
+    end
+      
+    def self.defined_store
+      unless @defined_permissions_store
+        @defined_permissions_store = {}
       end
+      @defined_permissions_store
+    end    
+  end
+  
+  class PermissionHash < Hash
+    
+    def initialize(method)
+      self[:permission_name] = method.to_sym
+    end
+    
+    def allow(*params)
+      self[:access_type] = :allow
+      self[:params] = params
+      Grizzly::Permissions.defined_store[self[:permission_name]] = self[:params]
+    end
+    
+    def deny(*params)
+      
     end
   end
 end

@@ -23,6 +23,7 @@ describe Grizzly do
   
   it "should return true if user is a member of a group stored in database" do
     UserGroup.create(:user_id => @user.id, :group_name => "test_group")
+    UserGroup.create(:user_id => @user.id, :group_name => "another_group")
     @user.member_of?(:test_group).should be(true)
   end
   
@@ -32,6 +33,15 @@ describe Grizzly do
   
   it "should check if user has specific permission" do
     @user.can?(:edit_profile).should be(true)
+  end
+  
+  it "should return false for permission NOT assigned for specific, even in database" do
+    @user.can?(:add_addresses).should be(false)
+  end
+  
+  it "should return true for permission assigned for specific user in database" do
+    UserPermission.create(:user_id => @user.id, :permission_name => "add_addresses")
+    @user.can?(:add_addresses).should be(true)
   end
   
   it "should return false if user DO NOT have specific permission" do

@@ -1,34 +1,25 @@
-require File.expand_path(File.dirname(__FILE__) + '/grizzly/errors')
-require File.expand_path(File.dirname(__FILE__) + '/grizzly/logger')
-require File.expand_path(File.dirname(__FILE__) + '/grizzly/configuration')
 require File.expand_path(File.dirname(__FILE__) + '/grizzly/adapter')
-require File.expand_path(File.dirname(__FILE__) + '/grizzly/permissions')
-require File.expand_path(File.dirname(__FILE__) + '/grizzly/groups')
-
+require 'logger'
 
 module Grizzly
+  
+  autoload :Permissions,                                'grizzly/permissions'
+  autoload :Groups,                                     'grizzly/groups'
+  
+  autoload :PermissionNotDefinedButSetAsDefault,        'grizzly/errors'
+  autoload :PermissionNotDefined,                       'grizzly/errors'
+  
   class << self
-    attr_writer :configuration
+    attr_accessor :logger    
   end
   
   def self.define(type)
     case type
     when :permissions
-      yield(Grizzly::Permissions::Base.define)
+      yield(Grizzly::Permissions.define)
     when :groups
-      yield(Grizzly::Groups::Base.define)
+      yield(Grizzly::Groups.define)
     end
   end
-
-  def self.logger
-    @logger || Grizzly.configuration.logger
-  end
-  
-  def self.configuration
-    @configuration ||= Configuration.new
-  end
-  
-  def self.configure
-    yield(self.configuration)
-  end
+  self.logger = Logger.new(STDOUT)
 end
