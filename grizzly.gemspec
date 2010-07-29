@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Grzegorz Kazulak"]
-  s.date = %q{2010-07-20}
+  s.date = %q{2010-07-29}
   s.description = %q{Control access like a Bear}
   s.email = %q{grzegorz.kazulak@gmail.com}
   s.extra_rdoc_files = [
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
      "lib/grizzly/adapter.rb",
      "lib/grizzly/adapters/active_record.rb",
      "lib/grizzly/errors.rb",
+     "lib/grizzly/frameworks/rails.rb",
      "lib/grizzly/groups.rb",
      "lib/grizzly/permissions.rb",
      "spec/grizzly_spec.rb",
