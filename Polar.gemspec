@@ -4,7 +4,7 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{Polar}
+  s.name = %q{polar}
   s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/grzegorzkazulak/Polar}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubyforge_project = %q{grizzlies}
+  s.rubyforge_project = %q{polar}
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Access control for polar bears}
   s.test_files = [
