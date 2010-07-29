@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
      "spec/polar_spec.rb",
      "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://github.com/grzegorzkazulak/Polar}
+  s.homepage = %q{http://github.com/grzegorzkazulak/polar}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{polar}

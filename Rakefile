@@ -29,14 +29,14 @@ begin
   require 'jeweler'
 
   Jeweler::Tasks.new do |gem|
-    gem.name        = 'Polar'
+    gem.name        = 'polar'
     gem.summary     = 'Access control for polar bears'
     gem.description = 'Control access like a bear'
     gem.email       = 'grzegorz.kazulak@gmail.com'
     gem.homepage    = 'http://github.com/grzegorzkazulak/%s' % gem.name
     gem.authors     = [ 'Grzegorz Kazulak', 'Lukasz Tackowiak']
 
-    gem.rubyforge_project = 'grizzlies'
+    gem.rubyforge_project = 'polar'
   end
 
   Jeweler::GemcutterTasks.new
