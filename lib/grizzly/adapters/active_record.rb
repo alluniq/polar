@@ -1,7 +1,16 @@
 require 'active_record'
 
-class UserPermission < ActiveRecord::Base; end
-class UserGroup < ActiveRecord::Base; end
+class UserPermission < ActiveRecord::Base;
+  def self.get_for_subject(subject_id)
+    find_all_by_user_id(subject_id)
+  end
+end
+
+class UserGroup < ActiveRecord::Base;
+  def self.get_for_subject(subject_id)
+    find_all_by_user_id(subject_id)
+  end
+end
 
 module Grizzly #nodoc
   module ActiveRecordExtensions
@@ -12,38 +21,39 @@ module Grizzly #nodoc
     end
     
     module InstanceMethods
+      def permission_object
+        UserPermission
+      end
+
+      def group_object
+        UserGroup
+      end
+
       def permissions
-        ::UserPermission.find_all_by_user_id(self.id)
+        return @permissions if defined?(@permissions)
+        auth = Grizzly::Permissions.new
+        auth.fill_subject_from_external_store(self.id, permission_object, group_object)
+        @permissions = auth.subject_store.sort { |a,b| a.to_s <=> b.to_s }
       end
       
-      def permissions
-        ::UserGroup.find_all_by_user_id(self.id)
+      def groups
+        return @groups if defined?(@groups)
+        auth = Grizzly::Groups.new
+        auth.fill_subject_from_external_store(self.id, group_object)
+        @groups = auth.subject_store.sort { |a,b| a.to_s <=> b.to_s }
       end
       
       # Check whenever specific subject has right permission assigned to him
       # either via defaults defined in the model or the database
       def can?(permission)
-        check(permission, Grizzly::Permissions, ::UserPermission)
+        raise Grizzly::PermissionNotDefined unless Grizzly::Permissions.defined_store.has_key?(permission)
+        permissions.include? permission
       end
       
       # Check whenever specific subject is a member of a right group
       # either via defaults defined in the model or the database
       def member_of?(group)
-        check(group, Grizzly::Groups, ::UserGroup)
-      end
-      
-      protected
-      
-      def check(group, type, storage)
-        unless type.instance.subject_store.include? group
-          storage.find_all_by_user_id(self.id).each do |sg|
-            type.instance.subject_store << sg.group_name.to_sym
-          end  
-          return true if type.instance.subject_store.include? group
-        else
-          return true
-        end
-        false
+        groups.include? group
       end
       
     end

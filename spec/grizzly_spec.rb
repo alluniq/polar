@@ -18,7 +18,7 @@ describe Grizzly do
   end  
   
   it "should check if user is a member of specific group" do
-    @user.member_of?(:administrators).should be(true)
+    @user.member_of?(:clients).should be(true)
   end
   
   it "should return true if user is a member of a group stored in database" do
@@ -32,7 +32,7 @@ describe Grizzly do
   end
   
   it "should check if user has specific permission" do
-    @user.can?(:edit_profile).should be(true)
+    @user.can?(:edit_profile).should be(true)    
   end
   
   it "should return false for permission NOT assigned for specific, even in database" do

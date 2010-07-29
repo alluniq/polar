@@ -45,8 +45,13 @@ ActiveRecord::Schema.define(:version => 1) do
     t.string :group_name
   end
   
+  create_table :groups do |t|
+    t.string :group_name
+  end
+  
   create_table :permission_groups do |t|
     t.string :permission_name
+    t.integer :group_id
   end
   
 end
@@ -83,11 +88,7 @@ class User < ActiveRecord::Base
   include Grizzly::ActiveRecordExtensions
   acts_as_grizzly
   
-  default :permissions do |p|
-    p.add_addresses
-  end
-  
   default :groups do |g|
-    g.administrators
+    g.clients
   end
 end

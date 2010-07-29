@@ -19,19 +19,19 @@ module Grizzly #nodoc
     attr_accessor :defined_groups_store
     attr_accessor :subject_store
 
-    def initialize
-      unless @defined_groups_store
-        @defined_groups_store = []
+    def initialize(instance_object = false)
+      @defined_groups_store ||= []
+      @subject_store ||= []
+      unless instance_object
+        @defined_groups_store = self.class.instance.defined_groups_store.clone
+        @subject_store = self.class.instance.subject_store.clone
       end
-      
-      unless @subject_store
-        @subject_store = []
-      end
+
       self
     end
 
     def self.instance
-      @__instance__ ||= new
+      @__instance__ ||= new(true)
     end
     
     def self.define(&block)
@@ -43,10 +43,13 @@ module Grizzly #nodoc
     end
     
     def self.defined_store
-      unless @defined_groups_store
-        @defined_groups_store = {}
+      @defined_groups_store ||= {}
+    end
+
+    def fill_subject_from_external_store(subject_id, storage)
+      storage.get_for_subject(subject_id).each do |group|
+        self.subject_store << group.group_name.to_sym
       end
-      @defined_groups_store
     end
   end
   

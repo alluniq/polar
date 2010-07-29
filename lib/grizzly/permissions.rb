@@ -18,20 +18,21 @@ module Grizzly #nodoc
   class Permissions
     attr_accessor :defined_permissions_store
     attr_accessor :subject_store
-      
-    def initialize
-      unless @defined_permissions_store
-        @defined_permissions_store = []
+    attr_accessor :permissions_for_controller
+
+    def initialize(instance_object = false)
+      @defined_permissions_store ||= []
+      @subject_store ||= []
+      unless instance_object
+        @defined_permissions_store = self.class.instance.defined_permissions_store.clone
+        @subject_store = self.class.instance.subject_store.clone
       end
-      
-      unless @subject_store
-        @subject_store = []
-      end
+
       self
     end
     
     def self.instance
-      @__instance__ ||= new
+      @__instance__ ||= new(true)
     end  
       
     def self.define(&block)
@@ -43,11 +44,35 @@ module Grizzly #nodoc
     end
       
     def self.defined_store
-      unless @defined_permissions_store
-        @defined_permissions_store = {}
+      @defined_permissions_store ||= {}
+    end
+
+    def self.for_controller
+      @permissions_for_controller ||= {}
+    end
+
+    def self.add_for_controller(perm_hash)
+      controller = perm_hash[:object].to_sym
+      actions = perm_hash[:params].present? && perm_hash[:params].has_key?(:only) ? perm_hash[:params][:only] : [:all]      
+      for_controller[controller] ||= {}
+      actions.each do |action|
+        for_controller[controller][action] ||= {:allow => [], :deny => []}
+        for_controller[controller][action][perm_hash[:access_type]] << perm_hash[:permission_name]
       end
-      @defined_permissions_store
-    end    
+    end
+
+    def fill_subject_from_external_store(subject_id, perm_storage, group_storage)
+      perm_storage.get_for_subject(subject_id).each do |perm|
+        self.subject_store << perm.permission_name.to_sym
+      end
+      groups = Grizzly::Groups.new
+      groups.fill_subject_from_external_store(subject_id, group_storage)
+      groups.subject_store.each do |group|
+        if Grizzly::Groups.defined_store.has_key?(group.to_sym)
+          self.subject_store.concat(Grizzly::Groups.defined_store[group.to_sym][:params])          
+        end
+      end
+    end
   end
   
   class PermissionHash < Hash
@@ -57,13 +82,20 @@ module Grizzly #nodoc
     end
     
     def allow(*params)
-      self[:access_type] = :allow
-      self[:params] = params
-      Grizzly::Permissions.defined_store[self[:permission_name]] = self[:params]
+      add(:allow, params)
     end
     
     def deny(*params)
-      
+      add(:deny, params)      
+    end
+
+    def add(perm_type, params)
+      self[:access_type] = perm_type
+      self[:object] = params.shift
+      self[:params] = params.first
+      Grizzly::Permissions.add_for_controller(self)
+      Grizzly::Permissions.defined_store[self[:permission_name]] ||= []
+      Grizzly::Permissions.defined_store[self[:permission_name]] << self
     end
   end
 end

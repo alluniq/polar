@@ -1,14 +1,12 @@
-require File.expand_path(File.dirname(__FILE__) + '/grizzly/adapter')
 require 'logger'
+require 'grizzly/adapter'
+require 'grizzly/errors'
+require 'grizzly/groups'
+require 'grizzly/permissions'
+require 'grizzly/frameworks/rails'
 
 module Grizzly
-  
-  autoload :Permissions,                                'grizzly/permissions'
-  autoload :Groups,                                     'grizzly/groups'
-  
-  autoload :PermissionNotDefinedButSetAsDefault,        'grizzly/errors'
-  autoload :PermissionNotDefined,                       'grizzly/errors'
-  
+
   class << self
     attr_accessor :logger    
   end
