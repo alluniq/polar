@@ -17,10 +17,19 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".gitignore",
+     "Polar.gemspec",
      "README.md",
      "Rakefile",
      "VERSION",
      "init.rb",
+     "lib/polar.rb",
+     "lib/polar/adapter.rb",
+     "lib/polar/adapters/active_record.rb",
+     "lib/polar/errors.rb",
+     "lib/polar/frameworks/rails.rb",
+     "lib/polar/groups.rb",
+     "lib/polar/permissions.rb",
+     "spec/polar_spec.rb",
      "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/grzegorzkazulak/Polar}
