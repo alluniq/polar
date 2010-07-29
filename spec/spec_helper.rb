@@ -2,7 +2,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'rubygems'
-require 'grizzly'
+require 'polar'
 require 'spec'
 require 'spec/autorun'
 require 'active_record'
@@ -60,7 +60,7 @@ end
 # Define permissions
 ##########################################################################
 
-Grizzly.define :permissions do |gp|
+Polar.define :permissions do |gp|
   gp.edit_profile do |c|
     c.allow :users_controller, :only => [:edit, :update]
   end
@@ -74,7 +74,7 @@ end
 # Define groups
 ##########################################################################
 
-Grizzly.define :groups do |gg|
+Polar.define :groups do |gg|
   gg.administrators do |a|
     a.have :add_addresses, :edit_profile
   end
@@ -85,8 +85,8 @@ Grizzly.define :groups do |gg|
 end
 
 class User < ActiveRecord::Base
-  include Grizzly::ActiveRecordExtensions
-  acts_as_grizzly
+  include Polar::ActiveRecordExtensions
+  acts_as_polar
   
   default :groups do |g|
     g.clients

@@ -1,6 +1,6 @@
 require 'rake'
 require 'spec/rake/spectask'
-adapters = Dir[File.dirname(__FILE__) + '/lib/grizzly/adapter/*.rb'].map{|file| File.basename(file, '.rb') }
+adapters = Dir[File.dirname(__FILE__) + '/lib/polar/adapter/*.rb'].map{|file| File.basename(file, '.rb') }
 
 task :spec do
   adapters.map{|adapter| "spec:#{adapter}"}.each do |spec|
@@ -29,14 +29,14 @@ begin
   require 'jeweler'
 
   Jeweler::Tasks.new do |gem|
-    gem.name        = 'grizzly'
-    gem.summary     = 'ACL for bears'
-    gem.description = 'Control access like a Bear'
+    gem.name        = 'Polar'
+    gem.summary     = 'Access control for polar bears'
+    gem.description = 'Control access like a bear'
     gem.email       = 'grzegorz.kazulak@gmail.com'
-    gem.homepage    = 'http://github.com/grzegorzkazulak/grizzly/%s' % gem.name
-    gem.authors     = [ 'Grzegorz Kazulak']
+    gem.homepage    = 'http://github.com/grzegorzkazulak/%s' % gem.name
+    gem.authors     = [ 'Grzegorz Kazulak', 'Lukasz Tackowiak']
 
-    gem.rubyforge_project = 'grizzly'
+    gem.rubyforge_project = 'grizzlies'
   end
 
   Jeweler::GemcutterTasks.new
