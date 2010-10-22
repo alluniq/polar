@@ -1,20 +1,10 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
-require 'rubygems'
+
 require 'polar'
-require 'spec'
-require 'spec/autorun'
+require 'rspec'
 require 'active_record'
-
-Spec::Runner.configure do |config|
-  #EMPTY
-end
-
-
-##########################################################################
-# Active Record connection
-##########################################################################
 
 begin
   ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
