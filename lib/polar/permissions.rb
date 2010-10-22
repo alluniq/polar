@@ -82,11 +82,11 @@ module Polar #nodoc
     end
     
     def allow(*params)
-      add(:allow, params)
+      dispatch(:allow, params)
     end
     
     def deny(*params)
-      add(:deny, params)      
+      dispatch(:deny, params)
     end
 
     def add(perm_type, params)
@@ -96,6 +96,20 @@ module Polar #nodoc
       Polar::Permissions.add_for_controller(self)
       Polar::Permissions.defined_store[self[:permission_name]] ||= []
       Polar::Permissions.defined_store[self[:permission_name]] << self
+    end
+    
+    private 
+    
+    def dispatch(access_type, params)
+      perm_objects = params.first
+      if perm_objects.is_a?(Array)
+        perm_objects.each do |po|
+          params[0] = po
+          add(access_type, params)
+        end
+      else
+        add(access_type, params)
+      end
     end
   end
 end

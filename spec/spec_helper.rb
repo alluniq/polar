@@ -53,6 +53,8 @@ end
 Polar.define :permissions do |gp|
   gp.edit_profile do |c|
     c.allow :users_controller, :only => [:edit, :update]
+    c.allow [:groups_controller, :clients_controller]
+    c.allow [:articles_controller, :contacts_controller], :only => [:index]
   end
   
   gp.add_addresses do |c|
