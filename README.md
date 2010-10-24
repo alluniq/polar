@@ -1,10 +1,26 @@
-Polar
-===============================
+# Polar
 
-Polar is a simple, fast and powerful way to manage user permissions/groups. It uses redis as a backend storage mechanism for all your permissions mechanism and simple DSL to define all the available permissions within a system.
+Polar is a simple, fast and powerful way to manage user permissions/groups. It uses simple DSL to define all the available permissions within a system.
 
-Usage example
-----------
+### Installation
+
+Add the following line to your Gemfile and run `bundle install`:
+
+    gem 'validated_fields', :git => 'http://github.com/alluniq/polar.git'
+
+### Example definition
+
+	Polar.define :permissions do |pe|
+	  pe.edit_profile do |c|
+	    c.allow :users_controller, :only => [:edit, :update]
+	  end
+
+	  pe.manage_addresses do |gz|
+	    c.allow :addresses_controller
+	  end
+	end
+
+## Setting default permissions/groups
 
 	class User < ActiveRecord::Base
 	
@@ -20,21 +36,7 @@ Usage example
 	
 Below the code definition to accompany the settings from User model. That should resist somewhere in your initializers folder.
 	
-Example definition
-----------
-
-	Polar.define :permissions do |gz|
-	  gz.edit_profile do |c|
-	    c.allow :users_controller, :only => [:edit, :update]
-	  end
-  
-	  gz.manage_addresses do |gz|
-	    c.allow :addresses_controller
-	  end
-	end
-	
-Example usage
-----------
+### Example usage
 
 	@user = User.first
 	
