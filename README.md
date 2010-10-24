@@ -6,7 +6,7 @@ Polar is a simple, fast and powerful way to manage user permissions/groups. It u
 
 Add the following line to your Gemfile and run `bundle install`:
 
-    gem 'validated_fields', :git => 'http://github.com/alluniq/polar.git'
+    gem 'polar', :git => 'http://github.com/alluniq/polar.git'
 
 ### Example definition
 
