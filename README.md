@@ -16,7 +16,7 @@ Add the following line to your Gemfile and run `bundle install`:
 	  end
 
 	  pe.manage_addresses do |gz|
-	    c.allow :addresses_controller
+	    gz.allow :addresses_controller
 	  end
 	end
 
